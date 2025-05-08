@@ -35,7 +35,6 @@ def scrape_page_data(driver):
         'addresses': []
     }
     
-    # Scrape each type of data
     data['titles'] = [el.text for el in driver.find_elements(By.CLASS_NAME, 'ct_title')]
     data['summaries'] = [el.text for el in driver.find_elements(By.CLASS_NAME, 'ct_brief')]
     data['characteristics'] = [el.text for el in driver.find_elements(By.CLASS_NAME, 'characteristics')]
@@ -45,7 +44,6 @@ def scrape_page_data(driver):
     
     return data
 # 5. Lấy tất cả dữ liệu của các trang.
-
 def scrape_all_pages(driver):
     
     all_data = {
@@ -71,7 +69,7 @@ def scrape_all_pages(driver):
         page += 1
     
     return all_data
-
+#cho cùng độ dài
 def normalize_data_lengths(data):
     
     max_length = max(len(lst) for lst in data.values())
@@ -83,7 +81,6 @@ def normalize_data_lengths(data):
     return data
 
 def save_to_excel(data, file_path):
-   
     df = pd.DataFrame({
         'Title': data['titles'], 
         'Summary': data['summaries'], 
@@ -96,9 +93,7 @@ def save_to_excel(data, file_path):
     df.to_excel(file_path, index=False)
 
 def job():
-
     try:
-        
         driver = initialize_driver()
         
         navigate_to_search_page(driver)
